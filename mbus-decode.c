@@ -236,7 +236,7 @@ void mbus_data_bin_decode(unsigned char *dst, const unsigned char *src, uint8_t 
 	{
 		while ((i < len) && ((pos + 3) < max_len))
 		{
-			pos += snprintf((char*)&dst[pos], max_len - pos, "%.2X ", src[i]);
+			pos += snprintf(&dst[pos], max_len - pos, "%.2X ", src[i]);
 			i++;
 		}
 
@@ -316,7 +316,7 @@ void mbus_data_tm_decode(struct tm *t, unsigned char *t_data, uint8_t t_data_siz
 
 
 // Generate manufacturer code from 2-byte encoded data
-void mbus_decode_manufacturer(unsigned char* m_str, unsigned char byte1, unsigned char byte2)
+void mbus_decode_manufacturer(char* m_str, unsigned char byte1, unsigned char byte2)
 {
 	uint8_t neg = 0;
 	uint32_t m_id;

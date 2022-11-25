@@ -5,7 +5,7 @@ typedef struct _allmess_zaehler
 {
 	uint8_t slave_primary_address;
 	uint32_t customer_number;
-	unsigned char manufacturer[4];
+	char manufacturer[4];
 	uint8_t generation;
 	uint8_t medium;
 	uint8_t reading_counter;
@@ -22,21 +22,13 @@ typedef struct _allmess_zaehler
 	uint16_t temp_difference;	// 0,01 K
 
 	struct tm date;
-	uint16_t operating_time;
-	uint8_t operating_unit; // 0->s 1->m 2->h 3->d
+	uint16_t operating_time;	// days
 	uint8_t firmware_version;
 	uint8_t software_version;
 
 	uint16_t alarm_code;
 
 } allmess_zaehler;
-
-typedef struct _history_entry
-{
-	uint32_t energy;		// kWh
-	uint32_t volume;		// l
-	struct tm date;
-} history_entry;
 
 //
 // Packet formats:
@@ -82,7 +74,6 @@ typedef struct _history_entry
 //
 //
 
-#define MBUS_WAKEUP_CHAR	0x55
 #define MBUS_FRAME_DATA_LENGTH 252
 /*
  typedef struct _mbus_frame
@@ -126,12 +117,6 @@ typedef struct _history_entry
 //
 #define MBUS_HANDLE_TYPE_TCP    0
 #define MBUS_HANDLE_TYPE_SERIAL 1
-
-#define MBUS_STANDARD_FRAME			0x00
-#define MBUS_ERROR_TIME_FRAME		0x01
-#define MBUS_FIRST_HISTORY_FRAME	0x02
-#define MBUS_LAST_HISTORY_FRAME	0x13
-#define MBUS_HISTORY_ENTRYS				18	// 0x02 -> 0x13 = 18 Einträge
 
 //
 // Resultcodes for mbus_recv_frame
@@ -545,7 +530,7 @@ int mbus_parse_unit(mbus_data_record* record, allmess_zaehler* z);
 uint32_t mbus_parse_data_field(mbus_data_record* record);
 unsigned char mbus_dif_datalength_lookup(unsigned char dif);
 const char* mbus_unit_prefix(int exp);
-void mbus_print(allmess_zaehler* z, int human, int unit);
+void mbus_print(allmess_zaehler* z);
 
 #endif /* _MBUS_H_ */
 

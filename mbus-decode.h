@@ -8,7 +8,7 @@
 #ifndef MBUS_DECODE_H_
 #define MBUS_DECODE_H_
 
-void mbus_decode_manufacturer(unsigned char* m_str, unsigned char byte1, unsigned char byte2);
+void mbus_decode_manufacturer(char* m_str, unsigned char byte1, unsigned char byte2);
 long long mbus_data_bcd_decode(unsigned char *bcd_data, uint8_t bcd_data_size);
 int mbus_data_int_decode(unsigned char *int_data, uint8_t int_data_size, uint32_t *value, uint8_t* neg);
 int mbus_data_long_decode(unsigned char *int_data, uint8_t int_data_size, long *value);
